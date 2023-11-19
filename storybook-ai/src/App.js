@@ -1,4 +1,5 @@
 import "./App.css";
+import AddCard from "./components/AddCard";
 import NewCard from "./components/NewCard";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div className="bg-amber-100 min-h-screen w-full space-y-10 py-10 items-center justify-center">
       <div className="self-start font-extralight text-6xl ml-10">Bookshelf</div>
       <div className="flex flex-row flex-wrap">
+        <AddCard />
         <NewCard
           color={"bg-orange-200"}
           title={"Harry Potter and the Philosopher’s Stone"}
