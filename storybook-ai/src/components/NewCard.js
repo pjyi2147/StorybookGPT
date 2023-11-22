@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from 'react'
+import { IoMdClose } from "react-icons/io";
 
 export default function NewCard({ color, title }) {
     const newStyle = color + " rounded-3xl py-24 w-36 h-20 shadow-md";
