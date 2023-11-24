@@ -1,20 +1,7 @@
-import { useState } from "react";
 import AddCard from "../components/AddCard";
-import ConfirmationModal from "../components/ConfirmationModal";
 import NewCard from "../components/NewCard";
-import { FaTrash } from "react-icons/fa";
 
 function Gallery() {
-
-  const [showDelete, setShowDelete] = useState(false)
-
-  function handleOpenDelete() {
-    setShowDelete(true);
-  }
-
-  const handleCloseDelete = () => {
-    setShowDelete(false)
-  }
 
   return (
     <>
@@ -23,11 +10,6 @@ function Gallery() {
           <div className="self-start font-extralight text-6xl ml-10">
             Bookshelf
           </div>
-          <button className="rounded-lg hover:brightness-75 bg-red-400 text-white font-medium text-xl mr-40 px-3" onClick={handleOpenDelete}>
-            <div className="flex flex-row place-content-center">
-              <FaTrash className="mr-3 mt-1" /> Delete a book
-            </div>
-          </button>
         </div>
 
         <div className="flex flex-row flex-wrap">
@@ -52,13 +34,6 @@ function Gallery() {
           <NewCard color={"bg-blue-200"} title={"Nineteen eighty-four"} />
         </div>
       </div>
-
-      <ConfirmationModal
-        show={showDelete}
-        onClose={handleCloseDelete}
-        text={"Do you wish to delete this book?"}
-        method={() => console.log('Deleted')}
-      />
     </>
   );
 }
