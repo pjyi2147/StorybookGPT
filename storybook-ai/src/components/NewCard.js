@@ -2,15 +2,13 @@ import React from "react";
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import ConfirmationModal from "./ConfirmationModal";
+import { useNavigate } from 'react-router-dom'
 
 export default function NewCard({ color, title }) {
-  const newStyle = color + " rounded-3xl py-24 w-36 h-20 shadow-md";
 
-  const [show, onShow] = useState(false);
-  const handleSetShow = () => {
-    console.log("click", show);
-    onShow(true);
-  };
+  const navigate = useNavigate()
+
+  const newStyle = color + " rounded-3xl py-24 w-36 h-20 shadow-md";
 
   const [showDelete, setShowDelete] = useState(false)
 
@@ -27,7 +25,7 @@ export default function NewCard({ color, title }) {
       <div className="m-10">
         <div
           className="hover:brightness-75 h-48 cursor-pointer"
-          onClick={handleSetShow}
+          onClick={() => navigate('/book')}
         >
           <div className={newStyle}>
             <div className="px-10 py-6 mt-6 bg-white"></div>
@@ -43,7 +41,7 @@ export default function NewCard({ color, title }) {
         </div>
         <div
           className="font-medium font relative top-2 text-center w-36 break_normal cursor-pointer line-clamp-2"
-          onClick={handleSetShow}
+          onClick={() => navigate('/book')}
         >
           {title}
         </div>
