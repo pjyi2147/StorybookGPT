@@ -1,33 +1,16 @@
 import "./App.css";
-import AddCard from "./components/AddCard";
-import NewCard from "./components/NewCard";
+import Gallery from "./pages/Gallery";
+import Book from "./pages/Book"
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <div className="bg-amber-100 min-h-screen w-full space-y-10 py-10 items-center justify-center">
-      <div className="self-start font-extralight text-6xl ml-10">Bookshelf</div>
-      <div className="flex flex-row flex-wrap">
-        <AddCard />
-        <NewCard
-          color={"bg-orange-200"}
-          title={"Harry Potter and the Philosopher’s Stone"}
-        />
-        <NewCard
-          color={"bg-pink-200"}
-          title={"A Hitchhiker’s Guide to the Galaxy"}
-        />
-        <NewCard color={"bg-blue-200"} title="Nineteen eighty-four" />
-        <NewCard
-          color={"bg-orange-200"}
-          title={"Harry Potter and the Philosopher’s Stone"}
-        />
-        <NewCard
-          color={"bg-pink-200"}
-          title={"A Hitchhiker’s Guide to the Galaxy"}
-        />
-        <NewCard color={"bg-blue-200"} title={"Nineteen eighty-four"} />
-      </div>
-    </div>
+    <Routes>
+      <Route>
+        <Route path='/' element={<Gallery />} />
+        <Route path='/book' element={<Book />} />
+      </Route>
+    </Routes>
   );
 }
 
