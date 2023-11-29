@@ -51,7 +51,7 @@ export default function NewCard({ color, title }) {
       <ConfirmationModal
         show={showDelete}
         onClose={handleCloseDelete}
-        text={"Do you wish to delete this book?"}
+        text={"Do you want to delete this book?"}
         method={() => console.log('Deleted')}
       />
     </>
