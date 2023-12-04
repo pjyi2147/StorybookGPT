@@ -25,12 +25,12 @@ export default function AddCard() {
             <div className="text-2xl self-end pr-40">Add a new book</div>
             <button onClick={closeModal}><IoIosClose className="hover:scale-110 text-4xl" /></button>
           </div>
-          <div>Upload a file</div>
-          <div className="flex flex-row justify-between">
-            <label><RiFolderUploadFill className="hover:text-zinc-500 cursor-pointer text-3xl" /><input className="hidden" type="file" accept=".txt"/></label>
-            <div className="bg-zinc-100 w-full ml-2 rounded-lg border-0"></div>
-          </div>
           <form className="flex flex-col">
+            <div>Upload a file</div>
+            <div className="flex flex-row justify-between pb-3">
+              <label><RiFolderUploadFill className="hover:text-zinc-500 cursor-pointer text-3xl" /><input className="hidden" type="file" accept=".txt" required/></label>
+              <div className="bg-zinc-100 w-full ml-2 rounded-lg border-0 px-2 py-0.5"></div>
+            </div>
             <label>Enter title</label>
             <input type="text" id="bookTitle" className="my-1 text-sm bg-zinc-100 rounded-lg border-0" required/>
             <button type="submit" className="hover:brightness-75 w-max self-end mt-2 px-2 py-1 rounded-lg font-semibold text-white bg-lime-400">Upload</button>
