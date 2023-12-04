@@ -2,6 +2,7 @@ import AddCard from "../components/AddCard";
 import NewCard from "../components/NewCard";
 
 function Gallery() {
+  document.body.style = 'background: rgb(254 243 199);'
 
   return (
     <>

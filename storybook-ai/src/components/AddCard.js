@@ -27,7 +27,7 @@ export default function AddCard() {
           </div>
           <div>Upload a file</div>
           <div className="flex flex-row justify-between">
-            <button><RiFolderUploadFill className="hover:text-zinc-500 text-3xl" /></button>
+            <label><RiFolderUploadFill className="hover:text-zinc-500 cursor-pointer text-3xl" /><input className="hidden" type="file" accept=".txt"/></label>
             <div className="bg-zinc-100 w-full ml-2 rounded-lg border-0"></div>
           </div>
           <form className="flex flex-col">
