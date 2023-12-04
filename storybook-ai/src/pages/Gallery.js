@@ -1,7 +1,18 @@
 import AddCard from "../components/AddCard";
 import NewCard from "../components/NewCard";
 
+const sampleBooks = [
+  { color: "bg-orange-200", title: "Harry Potter and the Philosopher’s Stone" },
+  { color: "bg-pink-200", title: "A Hitchhiker’s Guide to the Galaxy" },
+  { color: "bg-blue-200", title: "Nineteen eighty-four" },
+]
+
 function Gallery() {
+  document.body.style = 'background: rgb(254 243 199);' // fixes showing white bg when overscrolling
+
+  const bookList = sampleBooks.map(book =>
+    <NewCard color={book.color} title={book.title} />
+  )
 
   return (
     <>
@@ -14,24 +25,7 @@ function Gallery() {
 
         <div className="flex flex-row flex-wrap">
           <AddCard />
-          <NewCard
-            color={"bg-orange-200"}
-            title={"Harry Potter and the Philosopher’s Stone"}
-          />
-          <NewCard
-            color={"bg-pink-200"}
-            title={"A Hitchhiker’s Guide to the Galaxy"}
-          />
-          <NewCard color={"bg-blue-200"} title="Nineteen eighty-four" />
-          <NewCard
-            color={"bg-orange-200"}
-            title={"Harry Potter and the Philosopher’s Stone"}
-          />
-          <NewCard
-            color={"bg-pink-200"}
-            title={"A Hitchhiker’s Guide to the Galaxy"}
-          />
-          <NewCard color={"bg-blue-200"} title={"Nineteen eighty-four"} />
+          {bookList}
         </div>
       </div>
     </>

@@ -10,7 +10,7 @@ function Book() {
 
   return (
     <>
-      <div className="bg-amber-100 min-h-screen w-full space-y-10 items-center justify-center">
+      <div className="bg-amber-100 min-h-screen w-full space-y-10 items-center justify-center overflow-hidden">
         <TextSide chapter={chapter} title={title} text={text} />
       </div>
     </>
