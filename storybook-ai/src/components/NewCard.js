@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 export default function NewCard({ bookId, color, title, onDelete }) {
   const navigate = useNavigate()
 
-  const newStyle = color + " rounded-3xl py-24 w-36 h-20 shadow-md";
+  const newStyle = "rounded-3xl py-24 w-36 h-20 shadow-md";
 
   const [showDelete, setShowDelete] = useState(false)
 
@@ -26,7 +26,7 @@ export default function NewCard({ bookId, color, title, onDelete }) {
           className="hover:brightness-75 h-48 cursor-pointer"
           onClick={() => navigate('/book')}
         >
-          <div className={newStyle}>
+          <div className={newStyle} style={{backgroundColor: color}}>
             <div className="px-10 py-6 mt-6 bg-white"></div>
           </div>
           <svg

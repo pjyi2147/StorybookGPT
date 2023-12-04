@@ -27,9 +27,8 @@ export default function AddCard({onAddBook}) {
     const bookId = crypto.randomUUID();
     const selectedFile = form.elements["bookFile"].files[0];
     const title = form.elements["bookTitle"].value;
-    const color = "bg-blue-200";
   
-    onAddBook({ bookId:bookId, color:color, title:title });
+    onAddBook({ bookId:bookId, color:color.hex, title:title });
     closeModal();
   }
   
@@ -47,7 +46,7 @@ export default function AddCard({onAddBook}) {
           <form className="flex flex-col mt-1" onSubmit={submitForm}>
             <CirclePicker className="pb-2 px-2" width="395px" 
               color={color} 
-              colors={["#f44336", "#ff9800", "#ffeb3b", "#8bc34a", "#2196f3", "#3f51b5", "#9c27b0", "#795548", "#607d8b"]} 
+              colors={["#fca5a5", "#fed7aa", "#fef08a", "#d9f99d", "#bae6fd", "#a5b4fc", "#f5d0fe", "#737373", "#94a3b8"]} 
               onChange={handleChangeComplete}
               />
             <div className="my-1">Upload a file</div>

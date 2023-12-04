@@ -3,9 +3,9 @@ import AddCard from "../components/AddCard";
 import NewCard from "../components/NewCard";
 
 const sampleBooks = [
-  { bookId:"0", color: "bg-orange-200", title: "Harry Potter and the Philosopher’s Stone" },
-  { bookId:"1", color: "bg-pink-200", title: "A Hitchhiker’s Guide to the Galaxy" },
-  { bookId:"2", color: "bg-blue-200", title: "Nineteen eighty-four" },
+  { bookId:"0", color: "#fed7aa", title: "Harry Potter and the Philosopher’s Stone" },
+  { bookId:"1", color: "#fbcfe8", title: "A Hitchhiker’s Guide to the Galaxy" },
+  { bookId:"2", color: "#bfdbfe", title: "Nineteen eighty-four" },
 ]
 
 function Gallery() {
