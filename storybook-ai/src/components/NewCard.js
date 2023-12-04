@@ -4,8 +4,7 @@ import { FaTrash } from "react-icons/fa";
 import ConfirmationModal from "./ConfirmationModal";
 import { useNavigate } from 'react-router-dom'
 
-export default function NewCard({ color, title }) {
-
+export default function NewCard({ bookId, color, title, onDelete }) {
   const navigate = useNavigate()
 
   const newStyle = color + " rounded-3xl py-24 w-36 h-20 shadow-md";
@@ -52,7 +51,7 @@ export default function NewCard({ color, title }) {
         show={showDelete}
         onClose={handleCloseDelete}
         text={"Do you want to delete this book?"}
-        method={() => console.log('Deleted')}
+        method={() => onDelete(bookId)}
       />
     </>
   );
