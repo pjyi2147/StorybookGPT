@@ -1,12 +1,11 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io"
-import { RiFolderUploadFill } from "react-icons/ri"
 import { useState } from 'react';
 import Modal from "react-modal";
 import { CirclePicker } from "react-color";
 
-export default function AddCard() {
+export default function AddCard({onAddBook}) {
   const [modalIsOpen, setIsOpen] = useState(false);
   function openModal() {
     setIsOpen(true);
@@ -20,6 +19,18 @@ export default function AddCard() {
   const handleChangeComplete = (color) => {
     setColor(color);
   };
+
+  function submitForm(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const bookId = crypto.randomUUID();
+    const selectedFile = form.elements["bookFile"].files[0];
+    const title = form.elements["bookTitle"].value;
+  
+    onAddBook({ bookId:bookId, color:color.hex, title:title });
+    closeModal();
+  }
   
   return (
     <>
@@ -32,19 +43,16 @@ export default function AddCard() {
             <div className="text-2xl self-end pr-40">Add a new book</div>
             <button onClick={closeModal}><IoIosClose className="hover:scale-110 text-4xl" /></button>
           </div>
-          <form className="flex flex-col mt-1">
+          <form className="flex flex-col mt-1" onSubmit={submitForm}>
             <CirclePicker className="pb-2 px-2" width="395px" 
               color={color} 
-              colors={["#f44336", "#ff9800", "#ffeb3b", "#8bc34a", "#2196f3", "#3f51b5", "#9c27b0", "#795548", "#607d8b"]} 
+              colors={["#fca5a5", "#fed7aa", "#fef08a", "#d9f99d", "#bae6fd", "#a5b4fc", "#f5d0fe", "#737373", "#94a3b8"]} 
               onChange={handleChangeComplete}
               />
             <div className="my-1">Upload a file</div>
-            <div className="flex flex-row justify-between pb-3">
-              <label><RiFolderUploadFill className="hover:text-zinc-500 cursor-pointer text-3xl" /><input className="hidden" type="file" accept=".txt" required/></label>
-              <div className="bg-zinc-100 w-full ml-2 rounded-lg border-0 px-2 py-0.5"></div>
-            </div>
+            <input name="bookFile" className="mb-2" type="file" accept=".txt" required/>
             <label>Enter title</label>
-            <input type="text" id="bookTitle" className="my-1 text-sm bg-zinc-100 rounded-lg border-0" required/>
+            <input name="bookTitle" type="text" id="bookTitle" className="mt-1 text-sm bg-zinc-100 rounded-lg border-0" required/>
             <button type="submit" className="hover:brightness-75 w-max self-end mt-2 px-2 py-1 rounded-lg font-semibold text-white bg-lime-400">Upload</button>
           </form>
       </Modal>
