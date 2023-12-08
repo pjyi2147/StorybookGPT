@@ -13,8 +13,8 @@ function TextSide({chapter, title, text}) {
   return (
     <>
       <div className="bg-white w-1/2 h-screen py-10 px-12">
-        <div className="text-2xl mb-2 font-serif"> {chapter} </div>
         <div className="text-2xl mb-2 font-serif"> {title} </div>
+        <div className="text-2xl mb-2 font-serif"> {chapter} </div>
         <div className="text-xl h-5/6 overflow-auto font-serif">
           {paragraphs.map((element) => {
             return <p className="mb-6"> {element} </p>;
