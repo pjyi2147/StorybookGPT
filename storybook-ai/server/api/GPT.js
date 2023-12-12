@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { sleep } from "openai/core";
 
 export const ImagePrompt = async (story) => {
   try {
@@ -24,8 +25,12 @@ export const ImagePrompt = async (story) => {
     return response.choices[0];
   } catch (error) {
     if (error.response) {
-      console.log(error.response.status);
-      console.log(error.response.data);
+      if (error.response.status == 429) {
+        console.log("Too many requests. Please wait a few minutes and try again.");
+        return 429;
+      } else {
+        console.log(error.response.status);
+      }
     }
     else {
       console.log(error.message);
@@ -50,15 +55,19 @@ export const MusicPrompt = async (story) => {
           "content": `${story}`
         }
       ],
-      temperature: 0.7,
-      max_tokens: 100,
+      temperature: 0.5,
+      max_tokens: 50,
       top_p: 1,
     });
     return response.choices[0];
   } catch (error) {
     if (error.response) {
-      console.log(error.response.status);
-      console.log(error.response.data);
+      if (error.response.status == 429) {
+        console.log("Too many requests. Please wait a few minutes and try again.");
+        return 429;
+      } else {
+        console.log(error.response.data);
+      }
     }
     else {
       console.log(error.message);
