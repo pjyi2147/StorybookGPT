@@ -1,7 +1,11 @@
 import express from 'express';
 import fs from 'fs';
 import { test } from './api/test.js';
+import dotnev from 'dotenv';
 
+dotnev.config({
+  path: "./.env.local"
+});
 const app = express();
 const galleryInfoPath = '../gallery/info.json';
 const PORT = process.env.PORT || 3001;
@@ -12,6 +16,10 @@ app.get('/api/gallery', (req, res) => {
   const a = JSON.parse(fs.readFileSync(galleryInfoPath))
   res.json(a);
 });
+
+app.get('/api/env', (req, res) => {
+  res.json(process.env);
+})
 
 app.get('/api/image', async (req, res) => {
   var response = await test(story);
