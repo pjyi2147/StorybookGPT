@@ -1,7 +1,6 @@
 import OpenAI from "openai";
 
 export const ImagePrompt = async (story) => {
-  console.log(process.env.OPENAI_API_KEY)
   try {
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
@@ -36,12 +35,15 @@ export const ImagePrompt = async (story) => {
 
 export const MusicPrompt = async (story) => {
   try {
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
         {
           "role": "system",
-          "content": "You will be provided with a story text. Your goal is to create a prompt for musicLM to generate a piece of music for background music. It must be descriptive and must include the following: scene description, music genre, and tempo."
+          "content": "You will be provided with a story text. Your goal is to create a prompt for musicLM to generate a piece of music for the story. It must be auditorily descriptive and must include the scene description, music genre, and tempo in 50 words."
         },
         {
           "role": "user",
@@ -49,11 +51,10 @@ export const MusicPrompt = async (story) => {
         }
       ],
       temperature: 0.7,
-      max_tokens: 64,
+      max_tokens: 100,
       top_p: 1,
     });
-    console.log(response.choices[0].text)
-    return response.choices[0].text;
+    return response.choices[0];
   } catch (error) {
     if (error.response) {
       console.log(error.response.status);
