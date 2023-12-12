@@ -43,7 +43,7 @@ export const MusicPrompt = async (story) => {
       messages: [
         {
           "role": "system",
-          "content": "You will be provided with a story text. Your goal is to create a prompt for musicLM to generate a piece of music for the story. It must be auditorily descriptive and must include the scene description, music genre, and tempo in 50 words."
+          "content": "You will be provided with a story text. Your goal is to create a prompt for musicLM to generate a piece of music for the story. It must be auditorily descriptive and must include the scene description, music genre, and tempo in two sentences."
         },
         {
           "role": "user",

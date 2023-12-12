@@ -1,6 +1,8 @@
 import Replicate from "replicate";
+import fs from "fs";
+import https from "https";
 
-export const MusicAI = async (prompt) => {
+export const MusicAI = async (prompt, dest) => {
     const replicate = new Replicate({
         auth: process.env.REPLICATE_API_TOKEN,
     });
@@ -15,6 +17,14 @@ export const MusicAI = async (prompt) => {
           }
         }
     );
-    console.log(toString(output));
+    const file = fs.createWriteStream(dest);
+    https.get(output.audio, function(response) {
+        response.pipe(file);
+        file.on("finish", function() {
+            file.close();
+        });
+    }).on("error", function(err) {
+        fs.unlink(dest);
+    });
     return output.audio;
 }

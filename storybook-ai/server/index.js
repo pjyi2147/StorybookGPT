@@ -23,7 +23,6 @@ app.get('/api/env', (req, res) => {
 
 app.get('/api/image', async (req, res) => {
   var response = await test(story);
-  console.log("api image url: " + response);
   res.json(response);
 });
 
