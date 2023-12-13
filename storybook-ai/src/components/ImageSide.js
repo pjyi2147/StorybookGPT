@@ -1,17 +1,14 @@
-import { useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import AudioPlayer from 'material-ui-audio-player';
 
 function ImageSide({imageUrl, musicUrl}) {
-  const navigate = useNavigate();
-
   const muiTheme = createMuiTheme({});
 
   return (
     <>
       <div className="w-1/2 h-full flex flex-col items-center justify-center">
-        <img className="rounded-2xl" src={imageUrl} />
+        <img className="rounded-2xl" alt="describing current page text" src={imageUrl} />
         <div className="absolute top-0 left-1/2 m-5">
             <ThemeProvider theme={muiTheme}>
                 <AudioPlayer
