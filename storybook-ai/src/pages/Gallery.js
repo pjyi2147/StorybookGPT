@@ -3,9 +3,9 @@ import AddCard from "../components/AddCard";
 import NewCard from "../components/NewCard";
 
 const sampleBooks = [
-  { bookId:"0", color: "#fed7aa", title: "Harry Potter and the Philosopher’s Stone" },
-  { bookId:"1", color: "#fbcfe8", title: "A Hitchhiker’s Guide to the Galaxy" },
-  { bookId:"2", color: "#bfdbfe", title: "Nineteen eighty-four" },
+  { bookId:"0", color: "#fed7aa", title: "Harry Potter and the Philosopher’s Stone", currPage:1, maxPage:250 },
+  { bookId:"1", color: "#fbcfe8", title: "A Hitchhiker’s Guide to the Galaxy", currPage:1, maxPage:250 },
+  { bookId:"2", color: "#bfdbfe", title: "Nineteen eighty-four", currPage:1, maxPage:250 },
 ]
 
 function Gallery() {
@@ -33,7 +33,7 @@ function Gallery() {
   }
 
   const bookCardList = bookList.map(book =>
-    <NewCard key={book.bookId} bookId={book.bookId} color={book.color} title={book.title} onDelete={delBook} />
+    <NewCard key={book.bookId} bookId={book.bookId} color={book.color} title={book.title} currPage={book.currPage} maxPage={book.maxPage} onDelete={delBook} />
   )
 
   return (

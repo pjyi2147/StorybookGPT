@@ -9,6 +9,7 @@ function App() {
       <Route>
         <Route path='/' element={<Gallery />} />
         <Route path='/book' element={<Book />} />
+        <Route path='/book/:id/:page/:maxpage' element={<Book />} />
       </Route>
     </Routes>
   );

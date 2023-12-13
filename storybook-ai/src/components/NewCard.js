@@ -4,12 +4,14 @@ import { FaTrash } from "react-icons/fa";
 import ConfirmationModal from "./ConfirmationModal";
 import { useNavigate } from 'react-router-dom'
 
-export default function NewCard({ bookId, color, title, onDelete }) {
+export default function NewCard({ bookId, color, title, currPage, maxPage, onDelete }) {
   const navigate = useNavigate()
 
   const newStyle = "rounded-3xl py-24 w-36 h-20 shadow-md";
 
   const [showDelete, setShowDelete] = useState(false)
+
+  const bookUrl = "/book/"+bookId+"/"+currPage+"/"+maxPage;
 
   function handleOpenDelete() {
     setShowDelete(true);
@@ -24,7 +26,7 @@ export default function NewCard({ bookId, color, title, onDelete }) {
       <div className="m-10">
         <div
           className="hover:brightness-75 h-48 cursor-pointer"
-          onClick={() => navigate('/book')}
+          onClick={() => navigate(bookUrl)}
         >
           <div className={newStyle} style={{backgroundColor: color}}>
             <div className="px-10 py-6 mt-6 bg-white"></div>
@@ -40,7 +42,7 @@ export default function NewCard({ bookId, color, title, onDelete }) {
         </div>
         <div
           className="font-medium font relative top-2 text-center w-36 break_normal cursor-pointer line-clamp-2"
-          onClick={() => navigate('/book')}
+          onClick={() => navigate(bookUrl)}
         >
           {title}
         </div>
