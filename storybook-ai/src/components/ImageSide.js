@@ -1,9 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import AudioPlayer from 'material-ui-audio-player';
 
-function ImageSide({imageUrl, musicUrl}) {
+function ImageSide({imageUrl, musicUrl, id, currPage, maxPage}) {
+  const navigate = useNavigate();
   const muiTheme = createMuiTheme({});
+
+  function handleNextPage() {
+    if ((parseInt(currPage)+1)<=maxPage) {
+      var bookUrl = "/book/"+id+"/"+(parseInt(currPage)+1)+"/"+maxPage;
+      navigate(bookUrl);
+    }
+  }
 
   return (
     <>
@@ -26,7 +35,7 @@ function ImageSide({imageUrl, musicUrl}) {
                 />
             </ThemeProvider>
         </div>
-        <IoIosArrowForward className="absolute inset-y-0 right-0 h-full text-gray-400 text-4xl cursor-pointer hover:bg-amber-200" />
+        <IoIosArrowForward onClick={handleNextPage} className="absolute inset-y-0 right-0 h-full text-gray-400 text-4xl cursor-pointer hover:bg-amber-200" />
       </div>
     </>
   );

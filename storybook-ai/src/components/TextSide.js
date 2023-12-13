@@ -3,12 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoIosArrowBack } from "react-icons/io";
 
-function TextSide({chapter, title, text, currPage, maxPage}) {
+function TextSide({chapter, title, text, id, currPage, maxPage}) {
   const navigate = useNavigate();
 
   let paragraphs = text.split("\n").map((element) => {
     return element;
   });
+
+  function handlePrevPage() {
+    if ((currPage-1)>=1) {
+      var bookUrl = "/book/"+id+"/"+(currPage-1)+"/"+maxPage;
+      navigate(bookUrl);
+    }
+  }
 
   return (
     <>
@@ -28,12 +35,13 @@ function TextSide({chapter, title, text, currPage, maxPage}) {
           <div className="text-xl">
             {currPage} / {maxPage}
           </div>
+
           <RxHamburgerMenu
             className="text-5xl text-gray-400 cursor-pointer"
             onClick={() => console.log("click")}
           />
         </div>
-        <IoIosArrowBack className="absolute inset-y-0 left-0 h-full text-gray-400 text-4xl cursor-pointer hover:bg-slate-100" />
+        <IoIosArrowBack onClick={handlePrevPage} className="absolute inset-y-0 left-0 h-full text-gray-400 text-4xl cursor-pointer hover:bg-slate-100" />
       </div>
     </>
   );

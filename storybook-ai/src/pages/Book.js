@@ -15,8 +15,8 @@ function Book() {
   return (
     <>
       <div className="bg-amber-100 h-screen w-screen items-center overflow-hidden flex justify-between">
-        <TextSide title={title} text={text} currPage={page} maxPage={maxpage} />
-        <ImageSide imageUrl={imageUrl} musicUrl={musicUrl} />
+        <TextSide title={title} text={text} id={id} currPage={page} maxPage={maxpage} />
+        <ImageSide imageUrl={imageUrl} musicUrl={musicUrl} id={id} currPage={page} maxPage={maxpage} />
       </div>
     </>
   );
