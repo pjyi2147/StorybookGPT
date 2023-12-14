@@ -24,16 +24,15 @@ export default function AddCard({onAddBook}) {
     event.preventDefault();
 
     const form = event.target;
-    const bookId = crypto.randomUUID();
-    // const selectedFile = form.elements["bookFile"].files[0];
+    const selectedFile = form.elements["bookFile"].files[0];
     const title = form.elements["bookTitle"].value;
     const currPage = 1;
     const maxPage = 250; // SAMPLE VALUES
-  
-    onAddBook({ bookId:bookId, color:color.hex, title:title, currPage:currPage, maxPage:maxPage });
+
+    onAddBook({ color:color.hex, title:title, currPage:currPage, maxPage:maxPage, file:selectedFile });
     closeModal();
   }
-  
+
   return (
     <>
       <Modal
@@ -46,9 +45,9 @@ export default function AddCard({onAddBook}) {
             <button onClick={closeModal}><IoIosClose className="hover:scale-110 text-4xl" /></button>
           </div>
           <form className="flex flex-col mt-1" onSubmit={submitForm}>
-            <CirclePicker className="pb-2 px-2" width="395px" 
-              color={color} 
-              colors={["#fca5a5", "#fed7aa", "#fef08a", "#d9f99d", "#bae6fd", "#a5b4fc", "#f5d0fe", "#737373", "#94a3b8"]} 
+            <CirclePicker className="pb-2 px-2" width="395px"
+              color={color}
+              colors={["#fca5a5", "#fed7aa", "#fef08a", "#d9f99d", "#bae6fd", "#a5b4fc", "#f5d0fe", "#737373", "#94a3b8"]}
               onChange={handleChangeComplete}
               />
             <div className="my-1">Upload a file</div>
