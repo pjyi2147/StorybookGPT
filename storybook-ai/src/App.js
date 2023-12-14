@@ -15,15 +15,13 @@ function App() {
 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>{data? (
-          <p>{data.image}</p>
-        ) : (
-          <p>Waiting for server...</p>
-        )}</p>
-      </header>
-    </div>
+    <Routes>
+      <Route>
+        <Route path='/' element={<Gallery />} />
+        <Route path='/book' element={<Book />} />
+        <Route path='/book/:id/:page/:maxpage' element={<Book />} />
+      </Route>
+    </Routes>
   );
 }
 

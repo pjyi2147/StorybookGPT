@@ -25,10 +25,12 @@ export default function AddCard({onAddBook}) {
 
     const form = event.target;
     const bookId = crypto.randomUUID();
-    const selectedFile = form.elements["bookFile"].files[0];
+    // const selectedFile = form.elements["bookFile"].files[0];
     const title = form.elements["bookTitle"].value;
+    const currPage = 1;
+    const maxPage = 250; // SAMPLE VALUES
   
-    onAddBook({ bookId:bookId, color:color.hex, title:title });
+    onAddBook({ bookId:bookId, color:color.hex, title:title, currPage:currPage, maxPage:maxPage });
     closeModal();
   }
   
