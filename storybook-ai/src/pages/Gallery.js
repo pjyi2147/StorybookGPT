@@ -3,17 +3,11 @@ import AddCard from "../components/AddCard";
 import NewCard from "../components/NewCard";
 import axios from "axios";
 
-const sampleBooks = [
-  { bookId:"0", color: "#fed7aa", title: "Harry Potter and the Philosopher’s Stone", currPage:1, maxPage:250 },
-  { bookId:"1", color: "#fbcfe8", title: "A Hitchhiker’s Guide to the Galaxy", currPage:1, maxPage:250 },
-  { bookId:"2", color: "#bfdbfe", title: "Nineteen eighty-four", currPage:1, maxPage:250 },
-]
-
 function Gallery() {
   document.body.style = 'background: rgb(254 243 199);' // fixes showing white bg when overscrolling
 
   // Retrieve book list from local storage, default to sample books
-  var storedBookList = JSON.parse(localStorage.getItem('bookList'))||sampleBooks;
+  var storedBookList = JSON.parse(localStorage.getItem('bookList'))||[];
   const [bookList, setBookList] = useState(storedBookList);
 
   // Update localStorage whenever bookList changes
