@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import AddCard from "../components/AddCard";
 import NewCard from "../components/NewCard";
+import axios from "axios";
 
 const sampleBooks = [
   { bookId:"0", color: "#fed7aa", title: "Harry Potter and the Philosopher’s Stone", currPage:1, maxPage:250 },
@@ -14,20 +15,38 @@ function Gallery() {
   // Retrieve book list from local storage, default to sample books
   var storedBookList = JSON.parse(localStorage.getItem('bookList'))||sampleBooks;
   const [bookList, setBookList] = useState(storedBookList);
-  
+
   // Update localStorage whenever bookList changes
   useEffect(() => {
     localStorage.setItem('bookList', JSON.stringify(bookList));
   }, [bookList]);
 
   const addBook = (newBook) => {
-    setBookList([...bookList, newBook]);
+    // console.log(newBook);
+
+    const formData = new FormData();
+    formData.append('textFile', newBook.file);
+
+    axios.post('/api/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+        },
+    })
+    .then((response) => {
+      // console.log(response);
+      newBook.maxPage = response.data.maxPage;
+      newBook.bookId = response.data.bookId.toString();
+      console.log(newBook);
+      setBookList([...bookList, newBook]);
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   const delBook = (bookUUID) => {
     // Filter out the book with the specified bookUUID
     const updatedBookList = bookList.filter(book => book.bookId !== bookUUID);
-    
+
     // Update the state with the new book list
     setBookList(updatedBookList);
   }
