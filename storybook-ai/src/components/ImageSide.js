@@ -21,6 +21,10 @@ function ImageSide({id, currPage, maxPage}) {
   let musicUrl = `http://172.22.37.113:3001/books/${id}/${currPage}/music.wav`;
   let imageUrl = `http://172.22.37.113:3001/books/${id}/${currPage}/image.png`;
 
+  const getPlayer = (player, dispatch) => {
+    player.loop = true;
+  }
+
   return (
     <>
       <div className="w-1/2 h-full flex flex-col items-center justify-center">
@@ -38,6 +42,7 @@ function ImageSide({id, currPage, maxPage}) {
               preload="auto"
               loop={false}
               displaySlider={false}
+              getPlayer={getPlayer}
               src={musicUrl}
             />
           </ThemeProvider>
