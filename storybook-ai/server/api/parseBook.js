@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 
 function parseText(text, charactersPerPage=1500) {
-    const paragraphs = text.split(/\r\n\r\n|\n\n/);
+    const paragraphs = text.split(/\n/);
     const pages = [];
 
     console.log(paragraphs)
@@ -11,9 +11,9 @@ function parseText(text, charactersPerPage=1500) {
         // Create a new page for a new chapter
         if (/^CHAPTER [A-Z\s]+$/.test(paragraphs[i].trim())) {
             pages.push(currentPage)
-            currentPage = paragraphs[i]
+            currentPage = paragraphs[i] + '\n'
         } else {
-            currentPage += paragraphs[i];
+            currentPage += paragraphs[i] + '\n';
             if (currentPage.length > charactersPerPage) {
                 pages.push(currentPage);
                 currentPage = ''
