@@ -1,7 +1,10 @@
 import OpenAI from "openai";
 import { sleep } from "openai/core";
 
-export const ImagePrompt = async (story) => {
+const IMAGE_PROMPT = "You will be provided with a passage from a story. Your goal is to create a prompt for a text-to-image model to generate an image based on the passage. It must describe the setting in very vivid detail. The prompt cannot exceed 50 words, and must be in the form of a sentence"
+const MUSIC_PROMPT = "You wll be provided with a passage from a story. Your goal is to create a prompt for a text-to-audio model to generate music based on the passage. It must include the genre of music and the tempo, and describe the overall mood of the scene with detailed adjectives. The prompt cannot exceed 50 words, and must be in the form of a sentence."
+
+const Prompt = async (story, prompt) => {
   try {
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
@@ -11,7 +14,7 @@ export const ImagePrompt = async (story) => {
       messages: [
         {
           "role": "system",
-          "content": "You are provided with a story text. Your goal is to create a prompt for Dall E to generate an image. It must be visually descriptive and must include scene description, and character descriptions in 50 words."
+          "content": `${prompt}`
         },
         {
           "role": "user",
@@ -36,41 +39,12 @@ export const ImagePrompt = async (story) => {
       console.log(error.message);
     }
   }
+} 
+
+export const ImagePrompt = async (story) => {
+  return Prompt(story, IMAGE_PROMPT)
 }
 
 export const MusicPrompt = async (story) => {
-  try {
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          "role": "system",
-          "content": "You will be provided with a story text. Your goal is to create a prompt for musicLM to generate a piece of music for the story. It must be auditorily descriptive and must include the scene description, music genre, and tempo in two sentences."
-        },
-        {
-          "role": "user",
-          "content": `${story}`
-        }
-      ],
-      temperature: 0.5,
-      max_tokens: 50,
-      top_p: 1,
-    });
-    return response.choices[0];
-  } catch (error) {
-    if (error.response) {
-      if (error.response.status == 429) {
-        console.log("Too many requests. Please wait a few minutes and try again.");
-        return 429;
-      } else {
-        console.log(error.response.data);
-      }
-    }
-    else {
-      console.log(error.message);
-    }
-  }
+  return Prompt(story, MUSIC_PROMPT)
 }
