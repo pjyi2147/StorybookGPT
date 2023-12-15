@@ -3,6 +3,7 @@ import fs from 'fs';
 import { test } from './api/test.js';
 import dotnev from 'dotenv';
 import multer from 'multer';
+import { splitStoryIntoPages } from './api/parseBook.js'
 
 dotnev.config({
   path: "./.env.local"
@@ -36,21 +37,30 @@ app.post('/api/upload', upload.single('textFile'), (req, res) => {
   // Access the file content (as a buffer in memory)
   const fileContent = uploadedFile.buffer.toString('utf8');
 
-  // store the file
-  var filedir = `../books/`;
-  var bookId = 10;
-  var maxPage = 5;
+  // Split the book into pages
+  const UPLOAD_DIRECTORY = `./uploads`
 
-  // fs.writeFileSync(`../books/${bookId}/${maxPage}/text.txt`, fileContent);
+  if (!fs.existsSync(UPLOAD_DIRECTORY)) {
+    fs.mkdirSync(UPLOAD_DIRECTORY, {recursive: true})
+  }
+  
+  fs.writeFileSync(`${UPLOAD_DIRECTORY}/${uploadedFile.originalname}`, fileContent);
+  
+  const bookId = String(fs.readdirSync("./uploads").length);
+  splitStoryIntoPages(fileContent, bookId)
 
   // Do something with the file content, like saving it to a database or processing it
   // For demonstration, let's just send the content back as a response
+  
+  var maxPage = 5;
+  
   res.send({
     content: fileContent,
     maxPage: maxPage,
     bookId: bookId,
   });
 });
+
 
 app.get('/api/:bookId/:page/text', (req, res) => {
   var bookId = Number(req.params.bookId);
