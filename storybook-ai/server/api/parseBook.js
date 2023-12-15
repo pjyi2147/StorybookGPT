@@ -29,8 +29,8 @@ function parseText(text, charactersPerPage=1500) {
 
 function storePages(pages, bookId) {
     pages.forEach((page, index) => {
-        const paddedIndex = String(index + 1).padStart(3, '0');
-        const pageDirectory = `../books/${bookId}/${paddedIndex}/`
+        const pageId = String(index + 1);
+        const pageDirectory = `../books/${bookId}/${pageId}/`
         if (!existsSync(pageDirectory)) {
             mkdirSync(pageDirectory, {recursive: true})
         } else {
