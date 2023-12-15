@@ -39,12 +39,21 @@ app.post('/api/upload', upload.single('textFile'), async (req, res) => {
 
   // Split the book into pages
   const UPLOAD_DIRECTORY = `../uploads`
+  let filePath = `${UPLOAD_DIRECTORY}/${uploadedFile.originalname}`
 
   if (!fs.existsSync(UPLOAD_DIRECTORY)) {
     fs.mkdirSync(UPLOAD_DIRECTORY, {recursive: true})
   }
 
-  fs.writeFileSync(`${UPLOAD_DIRECTORY}/${uploadedFile.originalname}`, fileContent);
+  if (fs.existsSync(filePath)) {
+    let version = 1
+    while(fs.existsSync(filePath.replace(/\.txt$/, ` (${version}).txt`))) {
+      version++;
+    }
+    filePath = filePath.replace(/\.txt$/, ` (${version}).txt`);
+  }
+
+  fs.writeFileSync(filePath, fileContent);
 
   const bookId = fs.readdirSync(UPLOAD_DIRECTORY).length;
   var maxPage = splitStoryIntoPages(fileContent, bookId)
