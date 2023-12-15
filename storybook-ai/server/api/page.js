@@ -11,20 +11,39 @@ const sleep = (ms) => {
 
 const generatePrompt = async (story) => {
     var imagePrompt = await ImagePrompt(story);
-    while (imagePrompt == 429 || imagePrompt === undefined) {
+    while (imagePrompt === undefined) {
         console.log("Image prompt: limit reached");
         await sleep(60 * 1000);
         imagePrompt = await ImagePrompt(story);
     }
+    console.log("image prompt: " + imagePrompt.message.content);
     var musicPrompt = await MusicPrompt(story);
-    while (musicPrompt == 429 || musicPrompt === undefined) {
+    while (musicPrompt === undefined) {
         console.log("Music prompt: limit reached");
         await sleep(60 * 1000);
         musicPrompt = await MusicPrompt(story);
     }
+    console.log("music prompt: " + musicPrompt.message.content);
     return [imagePrompt, musicPrompt];
 }
 
+const generateImage = async (imagePrompt, imagePath) => {
+    var result = await ImageGeneration(imagePrompt.message.content, imagePath);
+    while (result === undefined) {
+        console.log("Image generation: limit reached");
+        await sleep(60 * 1000);
+        result = await ImageGeneration(imagePrompt.message.content, imagePath);
+    }
+}
+
+const generateMusic = async (musicPrompt, musicPath) => {
+    var result = await MusicAI(musicPrompt.message.content, musicPath);
+    while (result === undefined) {
+        console.log("Music generation: limit reached");
+        await sleep(60 * 1000);
+        result = await MusicAI(musicPrompt.message.content, musicPath);
+    }
+}
 
 export const pageGeneration = async (pagedir) => {
     var story = fs.readFileSync(path.resolve(pagedir, "text.txt"));
@@ -34,31 +53,7 @@ export const pageGeneration = async (pagedir) => {
     var musicPath = path.resolve(pagedir, "music.wav");
 
     var [imagePrompt, musicPrompt] = await generatePrompt(story);
-    console.log("image prompt: " + imagePrompt.message.content);
-    console.log("music prompt: " + musicPrompt.message.content);
 
-    var imageUrl = await ImageGeneration(imagePrompt.message.content, imagePath);
-
-    var musicUrl = await MusicAI(musicPrompt.message.content, musicPath);
-
-    // var imagePrompt = await ImagePrompt(story);
-    // if (imagePrompt != 429) {
-    //     console.log("image prompt: " + imagePrompt.message.content);
-
-    //     var imageUrl = await ImageGeneration(imagePrompt.message.content, imagePath);
-    //     console.log("image url: " + imageUrl);
-    // }
-
-    // var musicPrompt = await MusicPrompt(story);
-    // while (musicPrompt == 429) {
-    //     console.log("Too many requests. Please wait a few minutes and try again.");
-    //     await sleep(60 * 1000);
-    //     musicPrompt = await MusicPrompt(story);
-    // }
-    // if (musicPrompt != 429) {
-    //     console.log("music prompt: " + musicPrompt.message.content);
-
-    //     var musicUrl = await MusicAI(musicPrompt.message.content, musicPath);
-    //     console.log(musicUrl);
-    // }
+    await generateImage(imagePrompt, imagePath);
+    await generateMusic(musicPrompt, musicPath);
 }

@@ -9,7 +9,6 @@ dotnev.config({
   path: "./.env.local"
 });
 const app = express();
-const galleryInfoPath = '../gallery/info.json';
 const PORT = process.env.PORT || 3001;
 
 const storage = multer.memoryStorage();
@@ -64,7 +63,7 @@ app.post('/api/upload', upload.single('textFile'), async (req, res) => {
     bookId: bookId,
   });
 
-  for (let i = 1; i <= 2; i++) {
+  for (let i = 1; i <= maxPage; i++) {
     const pageId = String(i);
     const pageDirectory = `../books/${bookId}/${pageId}/`;
     console.log("Generating page " + pageId);

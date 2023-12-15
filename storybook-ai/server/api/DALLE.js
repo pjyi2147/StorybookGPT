@@ -26,12 +26,7 @@ export const ImageGeneration = async (prompt, dest) => {
         return response.data[0].url;
     }
     catch (error) {
-        if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-        }
-        else {
-            console.log(error.message);
-        }
+        console.log(error.message);
+        return undefined;
     }
 }

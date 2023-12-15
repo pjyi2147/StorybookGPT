@@ -58,7 +58,7 @@ function ImageSide({id, currPage, maxPage}) {
       } else {
         setImageExists(false);
       }
-    }, 500);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [imageUrl]);
@@ -73,7 +73,7 @@ function ImageSide({id, currPage, maxPage}) {
       } else {
         setMusicExists(false);
       }
-    }, 500);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [musicUrl]);
