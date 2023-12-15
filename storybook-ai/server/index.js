@@ -1,6 +1,6 @@
 import express from 'express';
 import fs from 'fs';
-import { test } from './api/test.js';
+import { pageGeneration } from './api/page.js';
 import dotnev from 'dotenv';
 import multer from 'multer';
 import { splitStoryIntoPages } from './api/parseBook.js'
@@ -21,7 +21,7 @@ app.get('/api', (req, res) => {
   res.json({ message: 'Hello from server!' });
 });
 
-app.post('/api/upload', upload.single('textFile'), (req, res) => {
+app.post('/api/upload', upload.single('textFile'), async (req, res) => {
   const uploadedFile = req.file;
 
   // Check if a file was uploaded
@@ -38,27 +38,30 @@ app.post('/api/upload', upload.single('textFile'), (req, res) => {
   const fileContent = uploadedFile.buffer.toString('utf8');
 
   // Split the book into pages
-  const UPLOAD_DIRECTORY = `./uploads`
+  const UPLOAD_DIRECTORY = `../uploads`
 
   if (!fs.existsSync(UPLOAD_DIRECTORY)) {
     fs.mkdirSync(UPLOAD_DIRECTORY, {recursive: true})
   }
-  
-  fs.writeFileSync(`${UPLOAD_DIRECTORY}/${uploadedFile.originalname}`, fileContent);
-  
-  const bookId = String(fs.readdirSync("./uploads").length);
-  splitStoryIntoPages(fileContent, bookId)
 
-  // Do something with the file content, like saving it to a database or processing it
-  // For demonstration, let's just send the content back as a response
-  
-  var maxPage = 5;
-  
+  fs.writeFileSync(`${UPLOAD_DIRECTORY}/${uploadedFile.originalname}`, fileContent);
+
+  const bookId = fs.readdirSync(UPLOAD_DIRECTORY).length;
+  var maxPage = splitStoryIntoPages(fileContent, bookId)
+
+  console.log(bookId, maxPage);
   res.send({
-    content: fileContent,
     maxPage: maxPage,
     bookId: bookId,
   });
+
+  for (let i = 1; i <= 2; i++) {
+    const pageId = String(i);
+    const pageDirectory = `../books/${bookId}/${pageId}/`;
+    console.log("Generating page " + pageId);
+    await pageGeneration(pageDirectory);
+    console.log("Done generating page " + pageId);
+  }
 });
 
 
@@ -87,7 +90,7 @@ app.get('/api/:bookId/:page/text', (req, res) => {
   }
 
   // get the file
-  var filePath = `${filedir}/page.txt`;
+  var filePath = `${filedir}/text.txt`;
   if (!fs.existsSync(filePath)) {
     res.status(404).send('File not found.');
     return;
@@ -101,12 +104,6 @@ app.get('/api/:bookId/:page/text', (req, res) => {
     "content": fileContent
   });
 })
-
-app.get('/api/image', async (req, res) => {
-  // var response = await test(story);
-  // res.json(response);
-  res.json({ message: 'Hello from server!' });
-});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

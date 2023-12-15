@@ -36,15 +36,18 @@ const Prompt = async (story, prompt) => {
       }
     }
     else {
+      console.log("why only message?");
       console.log(error.message);
     }
   }
-} 
+}
 
 export const ImagePrompt = async (story) => {
+  console.log("image prompt generation");
   return Prompt(story, IMAGE_PROMPT)
 }
 
 export const MusicPrompt = async (story) => {
+  console.log("music prompt generation");
   return Prompt(story, MUSIC_PROMPT)
 }
