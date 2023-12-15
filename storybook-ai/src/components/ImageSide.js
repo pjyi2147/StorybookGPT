@@ -3,6 +3,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import AudioPlayer from 'material-ui-audio-player';
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 function ImageSide({id, currPage, maxPage}) {
   const navigate = useNavigate();
@@ -38,14 +39,17 @@ function ImageSide({id, currPage, maxPage}) {
     return false;
   }
 
-  const musicCheck = () => {
-    // const audio = new Audio();
-    // audio.src = musicUrl;
-    // console.log(audio.readyState);
-    // if (audio.readyState >= 2) {
-    //   return true;
-    // }
-    // return false;
+  const musicCheck = async () => {
+    let ret = await axios.get(`/api/${id}/${currPage}/music`)
+    .then((res) => {
+      console.log("music found in musicCheck");
+      return true;
+    })
+    .catch((err) => {
+      console.log("music not found in musicCheck");
+      return false;
+    });
+    return ret;
   }
 
   useEffect(() => {
@@ -64,16 +68,16 @@ function ImageSide({id, currPage, maxPage}) {
   }, [imageUrl]);
 
   useEffect(() => {
-    setMusicExists(false);
-    const interval = setInterval(() => {
-      const result = true;
+    const interval = setInterval(async () => {
+      const result = await musicCheck();
       if (result) {
+        console.log("we found music");
         setMusicExists(true);
         clearInterval(interval);
       } else {
         setMusicExists(false);
       }
-    }, 2000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [musicUrl]);
@@ -103,7 +107,7 @@ function ImageSide({id, currPage, maxPage}) {
               download={false}
               autoplay={true}
               order="standard"
-              preload="auto"
+              preload=""
               loop={false}
               displaySlider={false}
               getPlayer={getPlayer}

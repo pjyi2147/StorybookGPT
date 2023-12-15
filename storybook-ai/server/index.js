@@ -72,6 +72,16 @@ app.post('/api/upload', upload.single('textFile'), async (req, res) => {
   }
 });
 
+app.get('/api/:bookId/:page/music', (req, res) => {
+  // if there is the music file, send text
+  // else, send 404
+  var bookId = Number(req.params.bookId);
+  var pageNumber = Number(req.params.page);
+
+  console.log(`music check for book ${bookId} page ${pageNumber}`);
+
+  fs.existsSync(`../books/${bookId}/${pageNumber}/music.wav`) ? res.send('Music found!') : res.status(404).send('File not found.');
+});
 
 app.get('/api/:bookId/:page/text', (req, res) => {
   var bookId = Number(req.params.bookId);
